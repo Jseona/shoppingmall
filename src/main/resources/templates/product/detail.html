@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mainlayout}">
+<head>
+	<title>Bootstrap 5 Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="container mt-3 text-center">
+		<h2>상품 상세보기</h2>
+	</div>
+	<div class="container mt-3 d-flex justify-content-center">
+		<div class="card" style="width:80%">
+			<img class="card-img-top" th:src="|/images/item/@{${productDTO.img}}|" alt="준비중" width="350px" height="350px">
+			<div class="card-body">
+				<h4 class="card-title" th:text="${productDTO.product}">상품명</h4>
+				<p class="card-text" th:text="${productDTO.detail}">상품설명</p>
+				<p class="card-text">가격 :
+					<span th:text="${productDTO.price}">1200</span>
+				</p>
+				<p class="card-text">재고량 :
+					<span th:text="${productDTO.quantity}">1200</span>
+				</p>
+				<p class="card-text">등록일 :
+					<span th:text="${#temporals.format(productDTO.regDate,'yyyy-MM-dd')}">2023-10-13</span>
+				</p>
+				<p class="card-text">수정일 :
+					<span th:text="${#temporals.format(productDTO.modDate,'yyyy-MM-dd')}">2023-10-23</span>
+				</p>
+				<a th:href="@{/product/modify(id=${productDTO.pid})}" class="btn btn-success opacity-75">수정</a>
+				<a th:href="@{/product/remove(id=${productDTO.pid})}" class="btn btn-danger opacity-75">삭제</a>
+			</div>
+		</div>
+		<br>
+	</div>
+</div>
+</body>
+</html>

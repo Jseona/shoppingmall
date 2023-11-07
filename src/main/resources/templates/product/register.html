@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/mainlayout}">
+<head>
+	<title>Bootstrap 5 Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div layout:fragment="content">
+	<div class="container mt-3 text-center">
+		<h2>상품 등록</h2>
+	</div>
+	<div class="container mt-3 d-flex justify-content-center">
+		<form th:action="@{/product/register}" method="post" enctype="multipart/form-data" style="width:80%" th:object="${productDTO}">
+			<div class="mb-1 mt-3">
+				<label for="product" class="form-label">상품명:</label>
+				<input type="text" class="form-control" id="product"
+				       placeholder="상품명을 입력하세요." name="product" th:field="*{product}">
+				<p class="text-danger" th:if="${#fields.hasErrors('product')}" th:errors="*{product}"></p>
+			</div>
+			<div class="mb-1">
+				<label for="detail">상품설명:</label>
+				<textarea class="form-control" rows="5" id="detail" name="detail" th:field="*{detail}"></textarea>
+			</div>
+			<div class="mb-1">
+				<label for="img" class="form-label">상품이미지:</label>
+				<!--이미지 파일은 field 넣어주지 말고, name명도 필드명이랑 겹치지 않게 설정-->
+				<input type="file" class="form-control" id="img" name="imgFile">
+			</div>
+			<div class="mb-1">
+				<label for="price" class="form-label">가격:</label>
+				<input type="number" class="form-control" id="price" name="price" th:field="*{price}">
+			</div>
+			<div class="mb-1">
+				<label for="quantity" class="form-label">재고수량:</label>
+				<input type="number" class="form-control" id="quantity" name="quantity" th:field="*{quantity}">
+			</div>
+			<div class="mb-1">
+				<label for="state" class="form-label">상태:</label>
+				<select class="form-select" id="state" name="state" th:field="*{state}">
+					<option value="1">신상품</option>
+					<option value="2">판매상품</option>
+					<option value="3">재고품</option>
+				</select>
+			</div>
+			<div class="mb-3">
+				<label for="sale" class="form-label">세일:</label>
+				<select class="form-select" id="sale" name="sale" th:field="*{sale}">
+					<option value="1">정상판매</option>
+					<option value="2">세일판매</option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary">등록하기</button>
+		</form>
+	</div>
+</div>
+</body>
+</html>
